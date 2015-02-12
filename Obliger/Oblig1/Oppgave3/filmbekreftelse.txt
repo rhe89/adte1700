@@ -1,0 +1,14 @@
+
+            Dato: 03-02-2015
+
+            Navn: Ola Nordmann
+
+            Telefonnummer: 112
+
+            Mail: nordmann@norge.no
+
+            Billettype: 120
+
+            Antall billetter: VIP
+
+        
