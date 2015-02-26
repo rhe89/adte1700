@@ -7,12 +7,13 @@
  */
 
 class Person {
-  protected $firstName, $surName, $address, $postalNr, $city, $phoneNr;
+  protected $persNr, $firstName, $lastName, $address, $postalNr, $city, $phoneNr;
 
-  function __construct($firstName, $surName, $address, $postalNr, $city, $phoneNr)
+  function __construct($persNr, $firstName, $lastName, $address, $postalNr, $city, $phoneNr)
   {
+    $this->persNr = $persNr;
     $this->firstName = $firstName;
-    $this->surName = $surName;
+    $this->lastName = $lastName;
     $this->address = $address;
     $this->postalNr = $postalNr;
     $this->city = $city;
@@ -27,7 +28,7 @@ class Person {
 
   public function getSurName()
   {
-    return $this->surName;
+    return $this->lastName;
   }
 
 

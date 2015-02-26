@@ -23,35 +23,33 @@ class Event {
     return $this->time;
   }
 
-
   public function getType()
   {
     return $this->type;
   }
-
 
   public function getPlace()
   {
     return $this->place;
   }
 
-  public function getRegisteredAthletes()
+  public function getAthletes()
   {
     return $this->registeredAthletes;
   }
 
-  public function addAthleteToEvent($athlete)
+  public function addAthleteToEvent($eventType, $athlete)
   {
-    array_push($this->registeredAthletes, $athlete);
+
   }
 
-  public function getRegisteredSpectators()
+  public function getSpectators()
   {
     return $this->registeredSpectators;
   }
 
-  public function addSpectatorToEvent($spectator)
+  public function addSpectatorToEvent($spectator, $id)
   {
-    array_push($this->registeredSpectators, $spectator);
+    $this->registeredSpectators[$id] = $spectator;
   }
 }

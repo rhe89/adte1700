@@ -3,9 +3,9 @@
 class Spectator extends Person {
   private $ticketType;
 
-  function __construct($firstName, $surName, $address, $postalNr, $city, $phoneNr, $ticketType)
+  function __construct($persNr, $firstName, $surName, $address, $postalNr, $city, $phoneNr, $ticketType)
   {
-    parent::__construct($firstName, $surName, $address, $postalNr, $city, $phoneNr);
+    parent::__construct($persNr, $firstName, $surName, $address, $postalNr, $city, $phoneNr);
     $this->ticketType = $ticketType;
   }
 
