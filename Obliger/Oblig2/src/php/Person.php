@@ -7,11 +7,10 @@
  */
 
 class Person {
-  protected $persNr, $firstName, $lastName, $address, $postalNr, $city, $phoneNr;
+  protected $id, $firstName, $lastName, $address, $postalNr, $city, $phoneNr;
 
-  function __construct($persNr, $firstName, $lastName, $address, $postalNr, $city, $phoneNr)
+  function __construct($firstName, $lastName, $address, $postalNr, $city, $phoneNr)
   {
-    $this->persNr = $persNr;
     $this->firstName = $firstName;
     $this->lastName = $lastName;
     $this->address = $address;
@@ -20,13 +19,21 @@ class Person {
     $this->phoneNr = $phoneNr;
   }
 
+  public function getID() {
+    return $this->id;
+  }
+
+  public function setID($id) {
+    $this->id = $id;
+  }
+
   public function getFirstName()
   {
     return $this->firstName;
   }
 
 
-  public function getSurName()
+  public function getLastName()
   {
     return $this->lastName;
   }

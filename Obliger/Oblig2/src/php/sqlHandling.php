@@ -15,141 +15,112 @@ function getDBConnection() {
   return $conn;
 }
 
-function insertDataToDB() {
-  $testing = true;
+function createTables() {
+  $testing = false;
 
   $connect = getDBConnection();
 
   if (!$testing) {
-    $createEventTable = "CREATE TABLE Events (
-                        date DATE NOT NULL,
-                        time TIME NOT NULL,
-                        type VARCHAR(30) PRIMARY KEY,
-                        place VARCHAR(30) NOT NULL
-                        )";
-    if ($connect->query($createEventTable) === TRUE) {
-      //Skriv til logg
-    } else {
-      //Skriv til logg
-      echo ("Kunne ikke lage tabellen Events: <br>" . $connect->connect_error);
-    }
-    //$persNr, $firstName, $lastName, $address, $postalNr, $city, $phoneNr
-    $createAthleteTable = "CREATE TABLE Athletes (
-                        id INT PRIMARY KEY AUTO_INCREMENT,
+
+
+    $createTables = "CREATE TABLE Athletes (
                         firstName VARCHAR(20) NOT NULL,
-                        lastName VARCHAR(20) PRIMARY KEY,
+                        lastName VARCHAR(20) NOT NULL,
                         address VARCHAR(20) NOT NULL,
                         postalNr INT NOT NULL,
                         city VARCHAR(20) NOT NULL,
-                        phoneNr VARCHAR(8) NOT NULL,
+                        phoneNr INT PRIMARY KEY NOT NULL,
                         nationality VARCHAR(20) NOT NULL
-                        )";
-    if ($connect->query($createAthleteTable) === TRUE) {
-      //Skriv til logg
-    } else {
-      //Skriv til logg
-      echo ("Kunne ikke lage tabellen Athletes: <br>" . $connect->connect_error);
-    }
+                        );";
 
-    $createSpectatorTable = "CREATE TABLE Spectators (
-                        id INT PRIMARY KEY AUTO_INCREMENT,
+    $createTables .= "CREATE TABLE Spectators (
                         firstName VARCHAR(20) NOT NULL,
-                        lastName VARCHAR(20) PRIMARY KEY,
+                        lastName VARCHAR(20) NOT NULL,
                         address VARCHAR(20) NOT NULL,
                         postalNr INT NOT NULL,
                         city VARCHAR(20) NOT NULL,
-                        phoneNr VARCHAR(8) NOT NULL,
+                        phoneNr INT PRIMARY KEY NOT NULL,
                         ticketType VARCHAR(20) NOT NULL
-                        )";
-    if ($connect->query($createSpectatorTable) === TRUE) {
-      //Skriv til logg
-    } else {
-      //Skriv til logg
-      echo ("Kunne ikke lage tabellen Spectators: <br>" . $connect->connect_error);
-    }
+                        );";
 
-    $createSpectatorsInEventTable = "CREATE TABLE SpectatorsInEvent (
-                        persID INT,
-                        eventType VARCHAR(30),
-                        PRIMARY KEY (persID, eventType),
-                        FOREIGN KEY (persID) REFERENCES Spectators(id),
-                        FOREIGN KEY (eventType) REFERENCES Events(event);
-                        )";
-    if ($connect->query($createSpectatorsInEventTable) === TRUE) {
-      //Skriv til logg
-    } else {
-      //Skriv til logg
-      echo ("Kunne ikke lage tabellen SpectatorsInEvent: <br>" . $connect->connect_error);
-    }
+    $createTables .= "CREATE TABLE SpectatorsInEvent (
+                      phoneNr INT,
+                      eventType VARCHAR(30),
+                      PRIMARY KEY (phoneNr, eventType),
+                      FOREIGN KEY (phoneNr) REFERENCES Spectators(phoneNr),
+                      FOREIGN KEY (eventType) REFERENCES Events(type)
+                      );";
 
-    $createAthletesInEventTable = "CREATE TABLE AthletesInEvent (
-                        persID INT,
+    $createTables .= "CREATE TABLE AthletesInEvent (
+                        phoneNr INT,
                         eventType VARCHAR(30),
-                        PRIMARY KEY (persID, eventType),
-                        FOREIGN KEY (persID) REFERENCES Athletes(id),
-                        FOREIGN KEY (eventType) REFERENCES Events(event);
-                        )";
-    if ($connect->query($createAthletesInEventTable) === TRUE) {
+                        PRIMARY KEY (phoneNr, eventType),
+                        FOREIGN KEY (phoneNr) REFERENCES Athletes(phoneNr),
+                        FOREIGN KEY (eventType) REFERENCES Events(type)
+                        );";
+
+    if ($connect->multi_query($createTables) == TRUE) {
       //Skriv til logg
     } else {
       //Skriv til logg
-      echo ("Kunne ikke lage tabellen AthletesInEvent: <br>" . $connect->connect_error);
     }
   }
 
   $connect->close();
 }
 
-function loadEveryThingFromDB($worldCup) {
+function loadTablesFromDB() {
   $connect = getDBConnection();
+
+  $toRet = array();
+  $rows = array();
 
   $sql = "SELECT * FROM Events";
-
-  $events = array();
-
   $result = $connect->query($sql);
 
   while($row = $result->fetch_assoc()){
 
-    array_push($events, $row);
+    array_push($rows, $row);
   }
+  $toRet["events"] = $rows;
 
-  $connect->close();
-
-}
-
-function loadAthletesFromDB() {
-  $connect = getDBConnection();
-
+  $rows = array();
   $sql = "SELECT * FROM Athletes";
-
-  $toRet = array();
-
   $result = $connect->query($sql);
 
   while($row = $result->fetch_assoc()){
 
-    array_push($toRet, $row);
+    array_push($rows, $row);
   }
+  $toRet["athletes"] = $rows;
 
-  $connect->close();
-
-  return $toRet;
-}
-
-function loadSpectatorsFromDB() {
-  $connect = getDBConnection();
-
+  $rows = array();
   $sql = "SELECT * FROM Spectators";
-
-  $toRet = array();
-
   $result = $connect->query($sql);
 
   while($row = $result->fetch_assoc()){
 
-    array_push($toRet, $row);
+    array_push($rows, $row);
   }
+  $toRet["spectators"] = $rows;
+
+  $rows = array();
+  $sql = "SELECT * FROM AthletesInEvents";
+  $result = $connect->query($sql);
+
+  while($row = $result->fetch_assoc()){
+    array_push($rows, $row);
+  }
+  $toRet["athletesInEvents"] = $rows;
+
+  $rows = array();
+  $sql = "SELECT * FROM SpectatorsInEvents";
+  $result = $connect->query($sql);
+  while($row = $result->fetch_assoc()){
+
+    array_push($rows, $row);
+  }
+  $toRet["spectatorsInEvents"] = $rows;
 
   $connect->close();
 
@@ -185,45 +156,39 @@ function addAthleteToDB($firstName, $lastName, $address, $postNr, $city, $phoneN
       , '" . $city .  "', '" . $phoneNr .  "', '" . $nationality .  "');";
 
   if ($connect->query($insert) === TRUE) {
-    /*
-     * Returnerer id'en (som autoinkrementerer), slik at den kan lagres i objektet og brukes som fremmednøkkel senere.
-     */
     $connect->close();
-    return $connect->insert_id;
+    return true;
   } else {
     echo "Error: " . $insert . "<br>" . $connect->error;
     $connect->close();
-    return -1;
+    return false;
   }
 }
 
-function addSpectatorToDB($persNr, $firstName, $lastName, $address, $postNr, $city, $phoneNr, $ticketType) {
+function addSpectatorToDB($firstName, $lastName, $address, $postNr, $city, $phoneNr, $ticketType) {
   $connect = getDBConnection();
 
   $insert =
     "INSERT INTO Spectators
-      VALUES ('" . $persNr .  "', '" . $firstName .  "', '" . $lastName .  "', '" . $address .  "', '" . $postNr .  "'
+      VALUES ('" . $firstName .  "', '" . $lastName .  "', '" . $address .  "', '" . $postNr .  "'
       , '" . $city .  "', '" . $phoneNr .  "', '" . $ticketType .  "');";
 
   if ($connect->query($insert) === TRUE) {
-    /*
-     * Returnerer id'en (som autoinkrementerer), slik at den kan lagres i objektet og brukes som fremmednøkkel senere.
-     */
     $connect->close();
-    return $connect->insert_id;
+    return true;
   } else {
     echo "Error: " . $insert . "<br>" . $connect->error;
     $connect->close();
-    return -1;
+    return false;
   }
 }
 
-function addSpectatorInEventToDB($persNr, $eventType) {
+function addSpectatorInEventToDB($phoneNr, $eventType) {
   $connect = getDBConnection();
 
   $insert =
     "INSERT INTO SpectatorsInEvents
-      VALUES ('" . $persNr .  "', '" . $eventType .  "');";
+      VALUES ('" . $phoneNr .  "', '" . $eventType .  "');";
 
   if ($connect->query($insert) === TRUE) {
     //Skriv til logg
@@ -236,12 +201,12 @@ function addSpectatorInEventToDB($persNr, $eventType) {
   }
 }
 
-function addAthletesInEventToDB($persNr, $eventType) {
+function addAthleteInEventToDB($phoneNr, $eventType) {
   $connect = getDBConnection();
 
   $insert =
     "INSERT INTO AthletesInEvents
-      VALUES ('" . $persNr .  "', '" . $eventType .  "');";
+      VALUES ('" . $phoneNr .  "', '" . $eventType .  "');";
 
   if ($connect->query($insert) === TRUE) {
     //Skriv til logg

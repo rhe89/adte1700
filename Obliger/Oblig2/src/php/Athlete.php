@@ -3,10 +3,10 @@
 class Athlete extends Person {
   private $nationality;
 
-  function __construct($persNr, $firstName, $surName, $address, $postalNr, $city, $phoneNr, $nationality)
+  function __construct($firstName, $lastName, $address, $postalNr, $city, $phoneNr, $nationality)
   {
 
-    parent::__construct($persNr, $firstName, $surName, $address, $postalNr, $city, $phoneNr);
+    parent::__construct($firstName, $lastName, $address, $postalNr, $city, $phoneNr);
     $this->nationality = $nationality;
   }
 

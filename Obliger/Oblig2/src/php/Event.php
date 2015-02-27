@@ -38,9 +38,21 @@ class Event {
     return $this->registeredAthletes;
   }
 
-  public function addAthleteToEvent($eventType, $athlete)
-  {
+  public function getAthlete($id) {
+    if (isset($this->registeredAthletes[$id])) {
+      return $this->registeredAthletes[$id];
+    } else {
+      return null;
+    }
+  }
 
+  public function hasAthlete($id) {
+    return isset($this->registeredAthletes[$id]);
+  }
+
+  public function addAthleteToEvent($id, $athlete)
+  {
+    $this->registeredAthletes[$id] = $athlete;
   }
 
   public function getSpectators()
@@ -48,7 +60,19 @@ class Event {
     return $this->registeredSpectators;
   }
 
-  public function addSpectatorToEvent($spectator, $id)
+  public function getSpectator($id) {
+    if (isset($this->registeredSpectators[$id])) {
+      return $this->registeredSpectators[$id];
+    } else {
+      return null;
+    }
+  }
+
+  public function hasSpectator($id) {
+    return isset($this->registeredSpectators[$id]);
+  }
+
+  public function addSpectatorToEvent($id, $spectator)
   {
     $this->registeredSpectators[$id] = $spectator;
   }

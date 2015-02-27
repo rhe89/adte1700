@@ -1,12 +1,19 @@
+<?php
+include "data.php";
+$name = $_SERVER['QUERY_STRING'];
+$name = str_replace("space", " ", $name);
+
+$event = $worldCup->getEvent($name);
+
+?>
 <html>
 <head>
-  <?php include "data.php"?>
   <link rel="stylesheet" href="style.css" type="text/css">
 </head>
 
 <body>
 <header>
-  <h1>Registreringssystem for Ski-VM!</h1>
+  <h1><?php ?></h1>
 </header>
 
 <nav>

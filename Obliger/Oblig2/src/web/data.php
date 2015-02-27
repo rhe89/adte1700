@@ -7,14 +7,17 @@ include "../php/Spectator.php";
 include "../php/sqlHandling.php";
 include "../php/SkiWorldCup.php";
 
-
-
-$testing = true;
+$testing = false;
 
 if (!$testing) {
-  insertDataToDB();
+  createTables();
 }
+loadTablesFromDB();
+
 
 $worldCup = new SkiWorldCup();
 
 $eventList = $worldCup->getEventList();
+$athletes = $worldCup->getAthletes();
+$spectators = $worldCup->getSpectators();
+
