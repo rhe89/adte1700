@@ -1,27 +1,16 @@
 <?php
-include "data.php";
-
-
+include "../data.php";
 session_start();
 
-$registered = isset($_POST["registerSpectator"]);
+$name = $_SERVER['QUERY_STRING'];
+$spectator = $worldCup->getSpectator($name);
 
-if (!$registered) {
-  $name = $_SERVER['QUERY_STRING'];
-  $name = str_replace("space", " ", $name);
-  $spectator = $worldCup->getSpectator($name);
+$spectatorID = $spectator->getPhoneNr();
 
-  $spectatorID = $spectator->getPhoneNr();
+$_SESSION["spectatorID"] = serialize($spectatorID);
+$_SESSION["worldCup"] = serialize($worldCup);
 
-  $_SESSION["spectator"] = $spectator;
-  $_SESSION["spectatorID"] = $spectatorID;
-  $_SESSION["worldCup"] = $worldCup;
 
-} else {
-  $spectatorID = $_SESSION["spectatorID"];
-  $spectator = $_SESSION["spectator"];
-  $worldCup = $_SESSION["worldCup"];
-}
 ?>
 <!--
 Her presenteres en utøver og hvilke øvelser han/hun er meldt på til.
@@ -31,7 +20,7 @@ og som hun/han kan melde seg på i. -->
 
 <html>
 <head>
-  <link rel="stylesheet" href="style.css" type="text/css">
+  <link rel="stylesheet" href="../style.css" type="text/css">
 </head>
 
 <body>
@@ -43,7 +32,7 @@ og som hun/han kan melde seg på i. -->
 <nav>
   <ul>
     <li>
-      <a href="index.php">Tilbake</a>
+      <a href="../index.php">Tilbake</a>
     </li>
   </ul>
 </nav>
@@ -51,7 +40,7 @@ og som hun/han kan melde seg på i. -->
 <main>
   <section id="eventList">
     <table>
-      <caption>Deltar i følgende øvelser</caption>
+      <caption>Skal se følgende øvelser</caption>
       <thead>
       <tr>
         <th>Øvelse</th>
@@ -64,8 +53,8 @@ og som hun/han kan melde seg på i. -->
       <?php
       foreach ($eventList as &$event):
         if ($event->getSpectator($spectatorID) != null):
-          $id = str_replace(" ", "", $event->getType());;?>
-          <tr id="<?php echo $id;?>">
+          $id = str_replace(" ", "space", $event->getType());;?>
+          <tr class="event-row" id="<?php echo $id;?>">
             <td><a><?php echo $event->getType();?></a></td>
             <td><a><?php echo $event->getDate();?></a></td>
             <td><a><?php echo $event->getTime();?></a></td>
@@ -79,33 +68,20 @@ og som hun/han kan melde seg på i. -->
   </section>
 
   <section id="addToEvent">
-    <h2>Meld på uttøver til øvelse</h2>
-    <form action="spectator.php" method="post">
-      <select name="eventType" required="true">
+    <h2>Meld på publikummer til øvelse</h2>
+    <form action="addSpectatorToEvent.php" method="post">
+      <select style="width: 100%" name="eventType" required="true">
         <?php foreach ($eventList as &$event):
           if ($event->getSpectator($spectatorID) == null):?>
             <option value="<?php echo $event->getType();?>" ><?php echo $event->getType();?></option>
           <?php endif;
         endforeach;?>
       </select>
-      <input type="submit" name="registerSpectator" value="Meld på uttøver">
+      <input style="width: 100%" type="submit" name="registerSpectator" value="Meld på publikummer">
     </form>
   </section>
 </main>
-
-<script rel="script" src="script.js" type="text/javascript"></script>
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.js"></script>
+<script rel="script" src="../script.js" type="text/javascript"></script>
 </body>
 </html>
-
-<?php
-if ($registered) {
-  $spectatorID = $_SESSION["spectatorID"];
-  $spectator = $_SESSION["spectator"];
-  $worldCup = $_SESSION["worldCup"];
-
-  if ($worldCup->addSpectatorToEvent($_POST["eventType"], $spectator, $spectatorID)) {
-    echo "Publikummer er nå registrert til denne øvelsen!";
-  }
-  session_destroy();
-}
-?>

@@ -46,6 +46,7 @@ body main section table {
     width: 100%;
     margin-right: auto;
     margin-left: auto;
+    margin-bottom: 20px;
 }
 
 body main section table caption {
@@ -54,7 +55,7 @@ body main section table caption {
 }
 
 body main section table tr {
-    text-align: center;
+    text-align: left;
 }
 
 body main section table tbody tr:nth-child(2n) {
@@ -64,6 +65,15 @@ body main section table tbody tr:nth-child(2n) {
 body main section table tbody tr:hover {
     color: white;
     background-color: dimgrey;
+}
+
+body main section #editEventDetails tbody tr:hover {
+    color: black;
+    background-color: transparent;
+}
+
+body main section #editEventDetails tbody tr:nth-child(2n) {
+    background-color: whitesmoke;
 }
 
 /************ FORMS *****************/

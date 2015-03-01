@@ -1,14 +1,11 @@
 <?php
-
-include "data.php";
+include "../data.php";
+session_start();
 
 $name = $_SERVER['QUERY_STRING'];
-$name = str_replace("space", " ", $name);
 $athlete = $worldCup->getAthlete($name);
 
 $athleteID = $athlete->getPhoneNr();
-
-session_start();
 
 $_SESSION["athleteID"] = serialize($athleteID);
 $_SESSION["worldCup"] = serialize($worldCup);
@@ -23,7 +20,7 @@ og som hun/han kan melde seg på i. -->
 
 <html>
 <head>
-  <link rel="stylesheet" href="style.css" type="text/css">
+  <link rel="stylesheet" href="../style.css" type="text/css">
 </head>
 
 <body>
@@ -35,7 +32,7 @@ og som hun/han kan melde seg på i. -->
 <nav>
   <ul>
     <li>
-      <a href="index.php">Tilbake</a>
+      <a href="../index.php">Tilbake</a>
     </li>
   </ul>
 </nav>
@@ -56,8 +53,8 @@ og som hun/han kan melde seg på i. -->
       <?php
       foreach ($eventList as &$event):
         if ($event->getAthlete($athleteID) != null):
-          $id = str_replace(" ", "", $event->getType());;?>
-          <tr id="<?php echo $id;?>">
+          $id = str_replace(" ", "space", $event->getType());;?>
+          <tr class="event-row" id="<?php echo $id;?>">
             <td><a><?php echo $event->getType();?></a></td>
             <td><a><?php echo $event->getDate();?></a></td>
             <td><a><?php echo $event->getTime();?></a></td>
@@ -84,7 +81,7 @@ og som hun/han kan melde seg på i. -->
     </form>
   </section>
 </main>
-
-<script rel="script" src="script.js" type="text/javascript"></script>
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.js"></script>
+<script rel="script" src="../script.js" type="text/javascript"></script>
 </body>
 </html>

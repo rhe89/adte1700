@@ -42,6 +42,7 @@ class Event {
     if (isset($this->registeredAthletes[$id])) {
       return $this->registeredAthletes[$id];
     } else {
+      error_log("Prøvde å finne utøver i øvelse, men han/hun fantes ikke\n", 3, "logg.txt");
       return null;
     }
   }
@@ -64,12 +65,28 @@ class Event {
     if (isset($this->registeredSpectators[$id])) {
       return $this->registeredSpectators[$id];
     } else {
+      error_log("Prøvde å finne tilskuer i øvelse, men han/hun fantes ikke\n", 3, "logg.txt");
       return null;
     }
   }
 
   public function hasSpectator($id) {
     return isset($this->registeredSpectators[$id]);
+  }
+
+  public function setDate($date)
+  {
+    $this->date = $date;
+  }
+
+  public function setTime($time)
+  {
+    $this->time = $time;
+  }
+
+  public function setPlace($place)
+  {
+    $this->place = $place;
   }
 
   public function addSpectatorToEvent($id, $spectator)

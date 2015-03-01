@@ -1,7 +1,7 @@
 <html>
 <head>
-  <?php include "data.php"?>
-  <link rel="stylesheet" href="style.css" type="text/css">
+  <?php include "../data.php" ?>
+  <link rel="stylesheet" href="../style.css" type="text/css">
 </head>
 
 <body>
@@ -12,7 +12,7 @@
 <nav>
   <ul>
     <li>
-      <a href="index.php">Tilbake</a>
+      <a href="../index.php">Tilbake</a>
     </li>
   </ul>
 </nav>
@@ -29,7 +29,7 @@
   </section>
 </main>
 
-<script rel="script" src="script.js" type="text/javascript"></script>
+<script rel="script" src="../script.js" type="text/javascript"></script>
 </body>
 </html>
 

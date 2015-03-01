@@ -1,6 +1,7 @@
+<?php include "data.php";?>
+
 <html>
 <head>
-  <?php include "data.php"?>
   <link rel="stylesheet" href="style.css" type="text/css">
 </head>
 
@@ -12,15 +13,15 @@
 <nav>
   <ul>
     <li>
-      <a href="registerEvent.php">Registrer ny øvelse</a>
+      <a href="event/registerEvent.php">Registrer ny øvelse</a>
     </li>
 
     <li>
-      <a href="registerAthlete.php">Registrer uttøver</a>
+      <a href="athlete/registerAthlete.php">Registrer uttøver</a>
     </li>
 
     <li>
-      <a href="registerSpectator.php">Registrer publikum</a>
+      <a href="spectator/registerSpectator.php">Registrer publikum</a>
     </li>
   </ul>
 </nav>
@@ -44,8 +45,8 @@
        * som viser mer info om hver spesifikke event vha. javascript
        */
         foreach ($eventList as &$event):
-          $id = str_replace(" ", "", $event->getType());;?>
-          <tr id="<?php echo $id;?>">
+          $id = str_replace(" ", "space", $event->getType());;?>
+          <tr class="event-row" id="<?php echo $id;?>">
             <td><a><?php echo $event->getType();?></a></td>
             <td><a><?php echo $event->getDate();?></a></td>
             <td><a><?php echo $event->getTime();?></a></td>
@@ -72,11 +73,6 @@
       </thead>
       <tbody>
       <?php
-      /*
-       * Itererer gjennom hver event, som vil legges til en ny rad i tabellen. Hver rad
-       * får en id lik event-typen, som gjør at den kan brukes for å laste inn en side
-       * som viser mer info om hver spesifikke event vha. javascript
-       */
       foreach ($athletes as &$athlete):
         $id = str_replace(" ", "", $athlete->getPhoneNr());;?>
         <tr class="athlete-row" id="<?php echo $id;?>">

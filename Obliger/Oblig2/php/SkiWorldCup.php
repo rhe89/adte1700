@@ -1,6 +1,4 @@
 <?php
-ini_set('display_errors', 1);
-error_reporting(E_ALL);
 /*
  * I dette systemet vil deltagere og publikum først registrere seg som hhv deltagere og publikum,
  * før de deretter kan registrere seg på de ulike øvelsene i mesterskapet. Primærnøkler for øvelser
@@ -77,7 +75,7 @@ class SkiWorldCup {
   function addAthlete($firstName, $lastName, $address, $postNr, $city, $phoneNr, $nationality) {
 
     if (isset($this->athletes[$phoneNr])) {
-      echo "Uttøveren er allerede registrert til mesterskapet!";
+      echo "Utøveren er allerede registrert til mesterskapet!";
       return false;
     } else {
       if (addAthleteToDB($firstName, $lastName, $address, $postNr, $city, $phoneNr, $nationality)) {
@@ -110,7 +108,7 @@ class SkiWorldCup {
         return false;
       }
     } else {
-      echo "Uttøveren er allerede registrert til denne øvelsen!";
+      echo "Utøveren er allerede registrert til denne øvelsen!";
       return false;
     }
   }
