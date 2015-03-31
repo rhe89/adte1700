@@ -2,13 +2,14 @@
 include "../data.php";
 session_start();
 
-$name = $_SERVER['QUERY_STRING'];
-$name = str_replace("space", " ", $name);
+$eventID = $_SERVER['QUERY_STRING'];
+$eventID = str_replace("space", " ", $eventID);
 
-$event = $worldCup->getEvent($name);
+if ($worldCup->eventExists($eventID)):
+
+$event = $worldCup->getEvent($eventID);
 
 $_SESSION["event"] = serialize($event);
-
 
 ?>
 <html>
@@ -17,17 +18,13 @@ $_SESSION["event"] = serialize($event);
 </head>
 
 <body>
+
+<?php include "../main-menu.php";?>
+
 <header>
   <h1><?php echo $event->getType()?></h1>
 </header>
 
-<nav>
-  <ul>
-    <li>
-      <a href="../index.php">Tilbake</a>
-    </li>
-  </ul>
-</nav>
 <main>
   <section id="athleteList">
     <table>
@@ -92,8 +89,8 @@ $_SESSION["event"] = serialize($event);
       </tbody>
     </table>
   </section>
-  <!-- Finner det ikke naturlig at man kan endre øvelsestypen, man kan
-  kun slette øvelsen eller oppdatere tid, sted og tidspunkt. -->
+
+  <?php if(isset($_SESSION["logged_in"])) {?>
   <section>
     <form action="updateEvent.php" method="post">
     <table id="editEventDetails">
@@ -136,23 +133,24 @@ $_SESSION["event"] = serialize($event);
       </tbody>
 
     </table>
-      <input type="submit" name="doChanges" value="Gjør endringer">
+      <input class="submit" type="submit" name="doChanges" value="Gjør endringer">
 
     </form>
 
 
   </section>
   <form action="deleteEvent.php" method="post">
-    <input type="text" name="deleteEvent" value="delete" hidden>
-    <input type="submit" value="Slett øvelse">
+    <input class="hidden-input" type="text" name="deleteEvent" value="delete" >
+    <input class="submit" type="submit" value="Slett øvelse">
   </form>
+  <?php }?>
 </main>
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.js"></script>
 <script rel="script" src="../script.js" type="text/javascript"></script>
 </body>
 </html>
-
 <?php
-
-
+else:
+  include "../error.php";
+endif;
 ?>

@@ -13,7 +13,7 @@ function quit() {
   if ($error['type'] == E_ERROR) {
     $message = $error['message'] . "\n";
     error_log($message, 3, "logg.txt");
-    header("Location: http://localhost:8888/oblig2/error.php");
+    header("Location: http://localhost:8888/oblig3/error.php");
   }
 }
 

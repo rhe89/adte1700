@@ -6,25 +6,14 @@
 </head>
 
 <body>
+
+
+<?php include "main-menu.php";?>
+
 <header>
   <h1>Registreringssystem for Ski-VM!</h1>
 </header>
 
-<nav>
-  <ul>
-    <li>
-      <a href="event/registerEvent.php">Registrer ny øvelse</a>
-    </li>
-
-    <li>
-      <a href="athlete/registerAthlete.php">Registrer uttøver</a>
-    </li>
-
-    <li>
-      <a href="spectator/registerSpectator.php">Registrer publikum</a>
-    </li>
-  </ul>
-</nav>
 <main>
   <section id="eventList">
     <table>

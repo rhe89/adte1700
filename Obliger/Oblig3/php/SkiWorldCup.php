@@ -52,6 +52,20 @@ class SkiWorldCup {
     }
   }
 
+  function usernameExists($username) {
+    return usernameExistsInDB($username);
+  }
+
+  function validateLogin($username, $password) {
+    return adminExistsInDB($username, $password);
+  }
+
+  function addAdmin($name, $username, $password) {
+
+    if (addAdminToDB($name, $username, $password)) return true;
+    else return false;
+  }
+
   function addEvent($eventDate, $eventTime, $eventType, $eventLocation) {
     if (isset($this->eventList[$eventType])) {
       echo "Denne øvelsen er allerede lagt til!";
@@ -66,6 +80,11 @@ class SkiWorldCup {
 
   function getEventList() {
     return $this->eventList;
+  }
+
+  function eventExists($id) {
+    if ($id == '') return false;
+    return isset($this->eventList[$id]);
   }
 
   function getEvent($type) {
@@ -89,6 +108,11 @@ class SkiWorldCup {
 
   function getAthletes() {
     return $this->athletes;
+  }
+
+  function athleteExists($id) {
+    if ($id == '') return false;
+    return isset($this->athletes[$id]);
   }
 
   function getAthlete($id) {
@@ -131,7 +155,10 @@ class SkiWorldCup {
     return $this->spectators;
   }
 
-
+  function spectatorExists($id) {
+    if ($id == '') return false;
+    return isset($this->spectators[$id]);
+  }
   function getSpectator($id) {
     return $this->spectators[$id];
   }

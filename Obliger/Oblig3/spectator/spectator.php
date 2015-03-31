@@ -2,12 +2,13 @@
 include "../data.php";
 session_start();
 
-$name = $_SERVER['QUERY_STRING'];
-$athlete = $worldCup->getAthlete($name);
+$spectatorID = $_SERVER['QUERY_STRING'];
 
-$athleteID = $athlete->getPhoneNr();
+if ($worldCup->spectatorExists($spectatorID)):
 
-$_SESSION["athleteID"] = serialize($athleteID);
+$spectator = $worldCup->getSpectator($spectatorID);
+
+$_SESSION["spectatorID"] = serialize($spectatorID);
 $_SESSION["worldCup"] = serialize($worldCup);
 
 
@@ -17,7 +18,6 @@ Her presenteres en utøver og hvilke øvelser han/hun er meldt på til.
 Videre vises en liste som viser hvilke øvelser han/hun ikke er registrert til,
 og som hun/han kan melde seg på i. -->
 
-
 <html>
 <head>
   <link rel="stylesheet" href="../style.css" type="text/css">
@@ -25,22 +25,16 @@ og som hun/han kan melde seg på i. -->
 
 <body>
 
-<header>
-  <h1><?php echo $athlete->getFirstName() . " " . $athlete->getLastName()?></h1>
-</header>
+<?php include "../main-menu.php";?>
 
-<nav>
-  <ul>
-    <li>
-      <a href="../index.php">Tilbake</a>
-    </li>
-  </ul>
-</nav>
+<header>
+  <h1><?php echo $spectator->getFirstName() . " " . $spectator->getLastName()?></h1>
+</header>
 
 <main>
   <section id="eventList">
     <table>
-      <caption>Deltar i følgende øvelser</caption>
+      <caption>Skal se følgende øvelser</caption>
       <thead>
       <tr>
         <th>Øvelse</th>
@@ -52,7 +46,7 @@ og som hun/han kan melde seg på i. -->
       <tbody>
       <?php
       foreach ($eventList as &$event):
-        if ($event->getAthlete($athleteID) != null):
+        if ($event->getSpectator($spectatorID) != null):
           $id = str_replace(" ", "space", $event->getType());;?>
           <tr class="event-row" id="<?php echo $id;?>">
             <td><a><?php echo $event->getType();?></a></td>
@@ -66,22 +60,28 @@ og som hun/han kan melde seg på i. -->
       </tbody>
     </table>
   </section>
+  <?php if (isset($_SESSION["logged_in"])):?>
+    <section id="addToEvent">
+      <h2>Meld på publikummer til øvelse</h2>
+      <form action="addSpectatorToEvent.php" method="post">
+        <select style="width: 100%" name="eventType" required="true">
+          <?php foreach ($eventList as &$event):
+            if ($event->getSpectator($spectatorID) == null):?>
+              <option value="<?php echo $event->getType();?>" ><?php echo $event->getType();?></option>
+            <?php endif;
+          endforeach;?>
+        </select>
+        <input class="submit" style="margin-top: 10px;" type="submit" name="registerSpectator" value="Meld på publikummer">
+      </form>
+    </section>
+  <?php endif; ?>
 
-  <section id="addToEvent">
-    <h2>Meld på uttøver til øvelse</h2>
-    <form action="addAthleteToEvent.php" method="post">
-      <select name="eventType" required="true">
-        <?php foreach ($eventList as &$event):
-          if ($event->getAthlete($athleteID) == null):?>
-            <option value="<?php echo $event->getType();?>" ><?php echo $event->getType();?></option>
-          <?php endif;
-        endforeach;?>
-      </select>
-      <input type="submit" name="registerAthlete" value="Meld på uttøver">
-    </form>
-  </section>
 </main>
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.js"></script>
 <script rel="script" src="../script.js" type="text/javascript"></script>
 </body>
 </html>
+<?php
+else:
+  include "../error.php";
+endif;

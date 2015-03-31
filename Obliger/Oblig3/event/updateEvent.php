@@ -8,7 +8,9 @@
 include "../data.php";
 session_start();
 
-$event = unserialize($_SESSION["event"]);
+if (isset($_SESSION["logged_in"])):
+
+  $event = unserialize($_SESSION["event"]);
 
   $eventType = $event->getType();
   $eventDate = $event->getDate();
@@ -38,15 +40,18 @@ $event = unserialize($_SESSION["event"]);
   }
 
   $urlID = str_replace(" ", "space", $eventType);
+  $_SESSION["event"] = null;
 
+  ?>
+  <html>
+  <head>
+    <meta http-equiv="refresh" content="0; url=http://localhost:8888/oblig3/index.php"/>
+    <link rel="stylesheet" type="text/css" href="../style.css">
+  </head>
+  </html>
+
+<?php
+else:
+  include "../error.php";
+endif;
 ?>
-<head>
-  <link rel="stylesheet" href="../style.css" type="text/css">
-</head>
-<nav>
-  <ul>
-    <li>
-      <a href="<?php echo "event.php?".$urlID?>">Tilbake til øvelse</a>
-    </li>
-  </ul>
-</nav>

@@ -1,21 +1,19 @@
+<?php include "../data.php";
+session_start(); ?>
+
 <html>
 <head>
-  <?php include "../data.php" ?>
   <link rel="stylesheet" href="../style.css" type="text/css">
 </head>
 
 <body>
+
+<?php include "../main-menu.php";?>
+
 <header>
-  <h1>Registreringssystem for Ski-VM!</h1>
+  <h1>Registrering av publikummere</h1>
 </header>
 
-<nav>
-  <ul>
-    <li>
-      <a href="../index.php">Tilbake</a>
-    </li>
-  </ul>
-</nav>
 <main>
   <section>
     <form action="registerSpectator.php" method="post">
@@ -30,11 +28,12 @@
           <option value="standing">Ståplass</option>
           <option value="forrest">I skogen</option>
         </select></p>
-      <input type="submit" name="registerSpectator" value="Registrer publikummer">
+      <input class="submit" type="submit" name="registerSpectator" value="Registrer publikummer">
     </form>
   </section>
 </main>
 
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.js"></script>
 <script rel="script" src="../script.js" type="text/javascript"></script>
 </body>
 </html>
@@ -86,6 +85,7 @@ if(isset($_POST["registerSpectator"])) {
   if ($everythingFine) {
     if ($worldCup->addSpectator($firstName, $lastName, $address, $postalNr, $city, $phoneNr, $ticketType)) {
       echo "Publikummer er nå registrert til mesterskapet!";
+      echo '<meta http-equiv="refresh" content="0; url=http://localhost:8888/oblig3/index.php"/>';
     }
   }
 }
@@ -93,3 +93,4 @@ if(isset($_POST["registerSpectator"])) {
 
 
 ?>
+

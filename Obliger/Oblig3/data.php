@@ -7,7 +7,6 @@ include "php/Spectator.php";
 include "php/sqlHandling.php";
 include "php/SkiWorldCup.php";
 
-
 createTables();
 
 loadTablesFromDB();

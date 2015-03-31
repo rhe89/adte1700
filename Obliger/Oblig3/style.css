@@ -1,0 +1,220 @@
+body {
+    font-family: 'helvetica-neue';
+    font-size: 25px;
+    font-weight: 100;
+    text-align: center;
+}
+
+body main {
+    width: 80vw;
+    margin-left: auto;
+    text-align: center;
+    margin-right: auto;
+}
+
+body #main-menu {
+    position: relative;
+    display: inline-block;
+    padding: 10px;
+}
+
+header h1,
+h2{
+    font-weight: 100;
+    font-size: 40px;
+}
+body main section table caption {
+    font-weight: 100;
+    font-size: 25px;
+}
+body #main-menu ul {
+    padding: 0;
+}
+
+body #main-menu ul li {
+    display: inline-block;
+    margin: 10px;
+}
+
+body #login-button:hover,
+body #admin-menu-toggle:hover {
+    background-color: #4a7e80;
+    cursor: pointer;
+}
+
+body #admin-menu {
+    display: none;
+    padding: 0;
+    margin-left: -20px;
+    margin-top: 10px;
+    position: absolute;
+    background: white;
+}
+
+body #admin-menu ul li {
+    margin-top: 5px;
+    text-transform: lowercase;
+}
+
+body #admin-menu ul li a {
+    text-transform: none;
+}
+
+body #login-screen {
+    margin-top: 100px;
+    text-align: center;
+}
+
+body nav ul li a:hover {
+    text-decoration: underline;
+}
+
+body main section {
+    padding: 10px;
+    margin: 20px;
+}
+body main table {
+    font-size: 1em;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+body main section table {
+    width: 100%;
+    margin-right: auto;
+    margin-left: auto;
+    margin-bottom: 20px;
+}
+
+body main section table tr {
+    text-align: left;
+    font-weight: 100;
+}
+body main section table caption {
+    font-size: 1em;
+    padding: 10px;
+    border-bottom: solid 2px #417779;
+}
+body main section table tr th {
+    font-weight: 200;
+    padding: 5px;
+    background: white;
+}
+
+body main section table tbody tr a {
+    padding: 5px;
+}
+body main section table tbody tr:hover {
+    color: white;
+    background-color: #2e8e9d;
+    cursor: pointer;
+}
+
+body main section #editEventDetails tbody tr:hover {
+    color: black;
+    background-color: transparent;
+}
+
+
+/************ FORMS *****************/
+
+
+form p {
+    position: relative;
+}
+
+form p .error-message {
+    display: none;
+}
+
+form p span{
+    position: absolute;
+    top: 5px;
+    right: -220px;
+    width: 200px;
+    padding: 5px;
+    background: #417779;
+    border-radius: 2px;
+    font-size: 14px;
+    color: white;
+    min-height: 30px;
+}
+
+form {
+    text-align: left;
+    display: inline-block;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+form input {
+    display: block;
+    height: 50px;
+    width: 400px;
+    font-size: 30px;
+    margin: 10px;
+    outline: none;
+    font-family: 'helvetica-neue';
+    font-weight: 100;
+}
+
+form input:focus {
+    border: 1px black solid;
+}
+
+form .submit {
+    width: 400px;
+    margin-right: auto;
+    margin-left: auto;
+}
+
+form .submit,
+#register-admin,
+body nav ul li a,
+body nav ul li span,
+#no-access a {
+    background: #417779;
+    border: none;
+    color: white;
+    border-radius: 7px;
+}
+
+form .submit:hover,
+#register-admin:hover,
+body nav ul li a:hover,
+body nav ul li span:hover,
+#no-access a {
+    text-decoration: none;
+    background: #4d8d8f;
+    cursor: pointer;
+}
+
+form .submit {
+    margin-top: 0;
+}
+
+#register-admin,
+body nav ul li a,
+body nav ul li span,
+#no-access a{
+    text-decoration: none;
+    display: block;
+    width: 382px;
+    margin-left: auto;
+    margin-right: auto;
+    padding: 8px;
+    font-size: 30px;
+    font-weight: 100;
+}
+
+form .submit:focus {
+    border: 2px white solid;
+}
+
+form input p {
+    background-color: black;
+}
+
+.hidden-input {
+    display: none;
+}
