@@ -4,7 +4,7 @@ session_start();?>
 
 
 <?php
-if (isset($_SESSION["logged_in"])) { ?>
+if ($_SESSION["logged_in"]) { ?>
   <html>
   <head>
     <link rel="stylesheet" href="../style.css" type="text/css">
@@ -65,7 +65,8 @@ if (isset($_SESSION["logged_in"])) { ?>
 
     if ($everythingFine) {
       if ($worldCup->addEvent($eventDate, $eventTime, $eventType, $eventLocation)) {
-        echo "Event lagt til i databasen!";
+        echo "<script> alert('Øvelse er nå lagt til å mesterskapet!') </script>";
+        echo '<meta http-equiv="refresh" content="0; url=/oblig3/index.php"/>';
       };
     }
   }

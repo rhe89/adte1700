@@ -12,10 +12,10 @@ session_start();
 
 
 <?php
-if(isset($_SESSION["logged_in"])) {
+if ($_SESSION["logged_in"]) {
 include "../main-menu.php"; ?>
 <header>
-  <h1>Registrering av deltakere</h1>
+  <h1>Registrering av uttøvere</h1>
 </header>
 
 <main>
@@ -93,8 +93,8 @@ if (isset($_POST["registerAthlete"])) {
 
   if ($everythingFine) {
     if ($worldCup->addAthlete($firstName, $lastName, $address, $postalNr, $city, $phoneNr, $nationality)) {
-      echo "Uttøver er nå registrert til mesterskapet!";
-      echo '<meta http-equiv="refresh" content="0; url=http://localhost:8888/oblig3/index.php"/>';
+      echo "<script> alert('Uttøver er nå registrert til mesterskapet!') </script>";
+      echo '<meta http-equiv="refresh" content="0; url=/oblig3/index.php"/>';
     }
   }
 }

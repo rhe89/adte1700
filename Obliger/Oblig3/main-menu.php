@@ -1,5 +1,5 @@
-<?php session_start();?>
-
+<?php session_start();
+;?>
 
 <nav id="main-menu">
   <ul>
@@ -10,8 +10,9 @@
       <a href="/oblig3/spectator/registerSpectator.php">Registrer publikum</a>
     </li>
     <?php
-    if (isset($_SESSION["logged_in"])) {?>
+    if ($_SESSION["logged_in"]) {?>
       <li>
+
         <span id="admin-menu-toggle">Administrator-meny</span>
         <nav id="admin-menu">
           <ul>
@@ -33,7 +34,7 @@
       </li>
     <?php } else { ?>
       <li>
-        <a href="/oblig3/login.php" id="login-button">Logg inn</a>
+        <a href="/oblig3/admin/login.php" id="login-button">Logg inn</a>
       </li>
     <?php
     }
@@ -43,8 +44,8 @@
 
 <?php
 if (isset($_POST["sign-out"])) {
-  session_destroy();
-  echo '<meta http-equiv="refresh" content="0; url=http://localhost:8888/oblig3/index.php"/>';
+  $_SESSION["logged_in"] = false;
+  echo '<meta http-equiv="refresh" content="0; url=/oblig3/index.php"/>';
 
 }
 

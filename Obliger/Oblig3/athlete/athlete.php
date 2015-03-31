@@ -1,6 +1,5 @@
 <?php
 include "../data.php";
-
 session_start();
 $athleteID = $_SERVER['QUERY_STRING'];
 
@@ -57,7 +56,7 @@ if ($worldCup->athleteExists($athleteID)):
     </section>
 
     <?php
-    if (isset($_SESSION["logged_in"])):?>
+    if ($_SESSION["logged_in"]):?>
       <section id="addToEvent">
         <h2>Meld på uttøver til øvelse</h2>
         <form action="addAthleteToEvent.php" method="post">

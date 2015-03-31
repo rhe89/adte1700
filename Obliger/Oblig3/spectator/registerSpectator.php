@@ -84,8 +84,8 @@ if(isset($_POST["registerSpectator"])) {
 
   if ($everythingFine) {
     if ($worldCup->addSpectator($firstName, $lastName, $address, $postalNr, $city, $phoneNr, $ticketType)) {
-      echo "Publikummer er nå registrert til mesterskapet!";
-      echo '<meta http-equiv="refresh" content="0; url=http://localhost:8888/oblig3/index.php"/>';
+      echo "<script> alert('Publikummer er nå registrert til å mesterskapet!') </script>";
+      echo '<meta http-equiv="refresh" content="0; url=/oblig3/index.php"/>';
     }
   }
 }

@@ -12,7 +12,8 @@ function getDBConnection() {
   $conn = new mysqli($servername, $username, $password, $dbName) or die();
 
   if ($conn->connect_error) {
-    error_log("Feil opprettelse av forbindelse til database:" . mysqli_connect_error() . "\n", 3, "/oblig3/logg.txt");
+    error_log("Feil opprettelse av forbindelse til database:" . mysqli_connect_error() . "\n", 3, "logg.txt");
+    header("Location: /oblig3/error.php");
     die("Connection failed");
 
   }
@@ -92,7 +93,7 @@ function createTables()
 
 
     if ($connect->multi_query($createTables) == FALSE) {
-      error_log("Feil under opprettelse av tabeller eller insetting i disse:" . "\n" . $connect->error, 3, "/oblig3/logg.txt");
+      error_log("Feil under opprettelse av tabeller eller insetting i disse:" . "\n" . $connect->error, 3, "logg.txt");
     }
 
     $connect->close();
@@ -104,14 +105,15 @@ function createTables()
 
     $createTables = "CREATE TABLE Administrators (
                         username VARCHAR(30) PRIMARY KEY,
-                        password VARCHAR(200) NOT NULL,
-                        name VARCHAR(40) NOT NULL
+                        password VARCHAR(100) NOT NULL,
+                        name VARCHAR(40) NOT NULL,
+                        salt VARCHAR(30) NOT NULL
                         );";
 
 
     if ($connect->multi_query($createTables) == FALSE) {
 
-      error_log("Feil under opprettelse av tabeller eller insetting i disse:" . "\n" . $connect->error, 3, "/oblig3/logg.txt");
+      error_log("Feil under opprettelse av tabeller eller insetting i disse:" . "\n" . $connect->error, 3, "logg.txt");
     }
 
     $connect->close();
@@ -264,7 +266,7 @@ function addEventToDB($eventDate, $eventTime, $eventType, $eventLocation) {
 
   } else {
     $connect->close();
-    error_log("Feil under innsetting av rad i Events: " . $insert . "\n" . $connect->error, 3, "/oblig3/logg.txt");
+    error_log("Feil under innsetting av rad i Events: " . $insert . "\n" . $connect->error, 3, "logg.txt");
     return false;
   }
 }
@@ -281,7 +283,7 @@ function addAthleteToDB($firstName, $lastName, $address, $postNr, $city, $phoneN
     $connect->close();
     return true;
   } else {
-    error_log("Feil under innsetting av rad i Athletes: " . $insert . "\n" . $connect->error, 3, "/oblig3/logg.txt");
+    error_log("Feil under innsetting av rad i Athletes: " . $insert . "\n" . $connect->error, 3, "logg.txt");
     $connect->close();
     return false;
   }
@@ -299,7 +301,7 @@ function addSpectatorToDB($firstName, $lastName, $address, $postNr, $city, $phon
     $connect->close();
     return true;
   } else {
-    error_log("Feil under innsetting av rad i Spectators: " . $insert . "\n" . $connect->error, 3, "/oblig3/logg.txt");
+    error_log("Feil under innsetting av rad i Spectators: " . $insert . "\n" . $connect->error, 3, "logg.txt");
     $connect->close();
     return false;
   }
@@ -317,7 +319,7 @@ function addSpectatorInEventToDB($phoneNr, $eventType) {
     $connect->close();
     return true;
   } else {
-    error_log("Feil under innsetting av rad i SpectatorsInEvents: " . $insert . "\n" . $connect->error, 3, "/oblig3/logg.txt");
+    error_log("Feil under innsetting av rad i SpectatorsInEvents: " . $insert . "\n" . $connect->error, 3, "logg.txt");
     $connect->close();
     return false;
   }
@@ -335,7 +337,7 @@ function addAthleteInEventToDB($phoneNr, $eventType) {
     $connect->close();
     return true;
   } else {
-    error_log("Feil under innsetting av rad i AthletesInEvent: " . $insert . "\n" . $connect->error, 3, "/oblig3/logg.txt");
+    error_log("Feil under innsetting av rad i AthletesInEvent: " . $insert . "\n" . $connect->error, 3, "logg.txt");
     $connect->close();
     return false;
   }
@@ -356,7 +358,7 @@ function updateEventTable($eventDate, $eventTime, $eventType, $eventPlace) {
   if ($connect->query($update) === true) {
     $connect->close();
   } else {
-    error_log("Feil under oppdatering av rad i Event: " . $update . "\n" . $connect->error, 3, "/oblig3/logg.txt");
+    error_log("Feil under oppdatering av rad i Event: " . $update . "\n" . $connect->error, 3, "logg.txt");
     $connect->close();
   }
 }
@@ -373,7 +375,7 @@ function deleteEvent($eventType) {
     $connect->close();
     return true;
   } else {
-    error_log("Feil under sletting av rad i Event: " . $delete . "\n" . $connect->error, 3, "/oblig3/logg.txt");
+    error_log("Feil under sletting av rad i Event: " . $delete . "\n" . $connect->error, 3, "logg.txt");
     $connect->close();
     return false;
   }

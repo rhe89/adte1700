@@ -90,7 +90,7 @@ $_SESSION["event"] = serialize($event);
     </table>
   </section>
 
-  <?php if(isset($_SESSION["logged_in"])) {?>
+  <?php if($_SESSION["logged_in"]) {?>
   <section>
     <form action="updateEvent.php" method="post">
     <table id="editEventDetails">

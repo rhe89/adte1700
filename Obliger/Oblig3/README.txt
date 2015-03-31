@@ -5,16 +5,15 @@ en feilmeldingsside. Siden uttøver- og øvelsehåndtering gjøres på
 spesifikke sider for den uttøveren eller øvelsen, vil disse skjemaene,
 om man ikke er logget inn, ikke blir vist.
 
-Når man logger inn lagres en boolean i session-arrayen, når man logger ut slettes
-denne indeksen fra samme array. Det er opp mot denne variabelen man sjekker innlogging.
+Når man logger inn lagres en boolean true i session-arrayen, når man settes denne til false.
+Det er opp mot denne variabelen man sjekker innlogging.
 Ellers brukes både klient- og server-validering med RegEX for registrering av administratorer.
 Jeg har valgt å ikke bruke HTML5-validering pga av at jeg nå bruker Javascript.
 
 Administratorer registreres med navn, ønsket brukernavn og passord, og brukernavn brukes som
 primærnøkkel i tabellen i databasen.
 
-
-Her er forutsetningene for forrige Oblig, som fortsatt gjelder for denne:
+Ellers gjelder samme forutsetninger som fra Oblig 2:
 
 Jeg bruker PHP versjon 5.4, HTML5, Javascript og CSS i denne leveringen.
 Jeg har brukt IntelliJ som utviklerverktøy, og filene kjøres på server fra mappen som heter

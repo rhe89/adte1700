@@ -1,6 +1,6 @@
 <?php include "../data.php";
 session_start();
-if (!isset($_SESSION["logged_in"])) {
+if (!$_SESSION["logged_in"]) {
 ?>
 <html>
 <head>
@@ -71,8 +71,8 @@ if (!isset($_SESSION["logged_in"])) {
 if (isset($_POST["login"])) {
   if (isset($_POST["username"]) && isset($_POST["password"]))
     if ($worldCup->validateLogin($_POST["username"], $_POST["password"])) {
-      echo "<p>Logget inn!</p>";
       $_SESSION["logged_in"] = true;
+      echo "<script> alert('Du er nå logget inn!') </script>";
       echo '<meta http-equiv="refresh" content="0; url=/oblig3/index.php"/>';
     }
   else

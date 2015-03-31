@@ -3,14 +3,14 @@
 include "../data.php";
 session_start();
 
-if (isset($_SESSION["logged_in"])) {
+if ($_SESSION["logged_in"]) {
   $event = unserialize($_SESSION["event"]);
 
   $eventType = $event->getType();
 
   if (deleteEvent($eventType) == true) {
-    echo "Øvelse er fjernet fra mesterskapet!";
-    echo '<meta http-equiv="refresh" content="0; url=http://localhost:8888/oblig3/index.php"/>';
+    echo "<script> alert('Øvelse er nå fjernet fra mesterskapet!') </script>";
+    echo '<meta http-equiv="refresh" content="0; url=/oblig3/index.php"/>';
   }
 
   $_SESSION["event"] = null;

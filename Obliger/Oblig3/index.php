@@ -1,12 +1,12 @@
-<?php include "data.php";?>
-
+<?php
+include "data.php";
+?>
 <html>
 <head>
   <link rel="stylesheet" href="style.css" type="text/css">
 </head>
 
 <body>
-
 
 <?php include "main-menu.php";?>
 

@@ -1,4 +1,4 @@
-<?php include "data.php";?>
+<?php include "../data.php";?>
 
 <html>
 <head>
@@ -54,8 +54,8 @@ if (isset($_POST["submit-user"])) {
     if ($worldCup->usernameExists($username))
       echo "Brukernavn finnes allerede!";
     else if ($worldCup->addAdmin($name, $username, $password)) {
-      echo "Ny administrator lagt til!";
-      echo '<meta http-equiv="refresh" content="0; url=http://localhost:8888/oblig3/index.php"/>';
+      echo "<script> alert('Ny administrator lagt til!') </script>";
+      echo '<meta http-equiv="refresh" content="0; url=/oblig3/index.php"/>';
     }
     else
       echo "Kunne ikke legge til administrator";

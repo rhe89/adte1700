@@ -13,7 +13,7 @@ function quit() {
   if ($error['type'] == E_ERROR) {
     $message = $error['message'] . "\n";
     error_log($message, 3, "logg.txt");
-    header("Location: http://localhost:8888/oblig3/error.php");
+    header("Location: ./oblig3/error.php");
   }
 }
 
@@ -23,5 +23,5 @@ function custom_warning_handler($errno, $errstr, $errfile, $errline) {
   $date = date('d-m-Y H:i');
 
   $error = $date . " " . $errfile . " " . $errline . " " . $errno . " " . $errstr . "\r\n";
-  error_log($error, 3, "logg.txt");
+  error_log($error, 3, "./oblig3/logg.txt");
 }

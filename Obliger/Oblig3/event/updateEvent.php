@@ -8,7 +8,7 @@
 include "../data.php";
 session_start();
 
-if (isset($_SESSION["logged_in"])):
+if ($_SESSION["logged_in"]):
 
   $event = unserialize($_SESSION["event"]);
 
@@ -36,7 +36,7 @@ if (isset($_SESSION["logged_in"])):
   }
 
   if (updateEventTable($eventDate, $eventTime, $eventType, $eventPlace) == true) {
-    echo "Endringer oppdatert!</br>";
+    echo "<script> alert('Øvelsesdetaljer er nå oppdatert!!') </script>";
   }
 
   $urlID = str_replace(" ", "space", $eventType);
@@ -45,7 +45,7 @@ if (isset($_SESSION["logged_in"])):
   ?>
   <html>
   <head>
-    <meta http-equiv="refresh" content="0; url=http://localhost:8888/oblig3/index.php"/>
+    <meta http-equiv="refresh" content="0; url=/oblig3/index.php"/>
     <link rel="stylesheet" type="text/css" href="../style.css">
   </head>
   </html>
