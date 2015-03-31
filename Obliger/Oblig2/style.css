@@ -1,0 +1,96 @@
+body {
+    font-family: 'avenir next', helvetica, arial, sans-serif;
+    font-size: 16px;
+    text-align: center;
+}
+
+body main {
+    width: 80vw;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+body nav {
+    width: 80vw;
+    background-color: dimgrey;
+    margin-right: auto;
+    margin-left: auto;
+
+}
+body nav ul {
+    padding: 0;
+}
+
+body nav ul li {
+    display: inline-block;
+}
+
+body nav ul li a {
+    width: 200px;
+    color: white;
+    padding: 0.5em;
+    text-decoration: none;
+    text-transform: uppercase;
+}
+
+body nav ul li a:hover {
+    text-decoration: underline;
+}
+
+body main table {
+    margin-left: auto;
+    margin-right: auto;
+}
+
+body main section table {
+    width: 100%;
+    margin-right: auto;
+    margin-left: auto;
+    margin-bottom: 20px;
+}
+
+body main section table caption {
+    background-color: dimgrey;
+    color: whitesmoke;
+}
+
+body main section table tr {
+    text-align: left;
+}
+
+body main section table tbody tr:nth-child(2n) {
+    background-color: whitesmoke;
+}
+
+body main section table tbody tr:hover {
+    color: white;
+    background-color: dimgrey;
+}
+
+body main section #editEventDetails tbody tr:hover {
+    color: black;
+    background-color: transparent;
+}
+
+body main section #editEventDetails tbody tr:nth-child(2n) {
+    background-color: whitesmoke;
+}
+
+/************ FORMS *****************/
+
+body main section form {
+    text-align: left;
+    display: inline-block;
+    margin-left: auto;
+    margin-right: auto;
+    font-size: 1em;
+}
+
+body main section form input {
+    font-size: 1em;
+    width: 100%;
+}
+
+body main section form input p {
+    background-color: black;
+}
